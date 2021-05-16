@@ -1,0 +1,876 @@
+---
+openapi: 3.0.0
+info:
+  title: Simple Inventory API
+  description: This is a simple API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/dvirainisch/liad_dvir_api/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://virtserver.swaggerhub.com/liadse/liad_dvir_api/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: Auth
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+- name: Guest
+  description: Guest that visit the website
+- name: Player
+  description: Player in one of the teams
+- name: Coach
+  description: Coach in one of the teams
+- name: Team
+  description: Contains players and coaches. commpiting agains other teams during a season
+- name: Favorites
+  description: Favorite choice of members
+- name: League
+  description: League contains teams
+paths:
+  /register:
+    post:
+      tags:
+      - Guest
+      summary: A new user from the client is added to the server
+      description: A JSON object contains all the details about the new user.
+      requestBody:
+        description: Inventory item to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      responses:
+        "201":
+          description: the user has been created.
+        "400":
+          description: Wrong input parameters
+  /login:
+    post:
+      tags:
+      - Guest
+      summary: A user login into the system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        "200":
+          description: Login ok
+        "404":
+          description: Username or password not found
+  /player/preview/{playerID}:
+    get:
+      tags:
+      - Player
+      summary: get a preview about a player by his ID
+      parameters:
+      - name: playerID
+        in: path
+        description: The ID of the player
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+        example: 12345
+      responses:
+        "200":
+          description: Data of the specific player
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewPlayer'
+        "404":
+          description: Can't find player ID
+  /player/Details/{playerID}:
+    get:
+      tags:
+      - Player
+      summary: get all Details about a player by his ID
+      parameters:
+      - name: playerID
+        in: path
+        description: The ID of the player
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+        example: 12345
+      responses:
+        "200":
+          description: Full Data of the specific player
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailsPlayer'
+        "404":
+          description: Can't find player ID
+  /coach/preview/{coachID}:
+    get:
+      tags:
+      - Coach
+      summary: get a preview about a Coach by his ID
+      parameters:
+      - name: coachID
+        in: path
+        description: The ID of the Coach
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+        example: 12345
+      responses:
+        "200":
+          description: Data of the specific Coach
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewCoach'
+        "404":
+          description: Can't find Coach ID
+  /Coach/Details/{coachID}:
+    get:
+      tags:
+      - Coach
+      summary: get all Details about a Coach by his ID
+      parameters:
+      - name: coachID
+        in: path
+        description: The ID of the Coach
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+        example: 12345
+      responses:
+        "200":
+          description: Full Data of the specific Coach
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailsCoach'
+        "404":
+          description: Can't find Coach ID
+  /favorites/addPlayer:
+    post:
+      tags:
+      - Favorites
+      summary: add player to user favorite array
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFavPlayerIDviabody'
+      responses:
+        "201":
+          description: player added Succsessfully
+        "404":
+          description: Players list not found
+  /favorites/deletePlayer/{playerID}:
+    delete:
+      tags:
+      - Favorites
+      summary: delete player from user favorite array
+      parameters:
+      - name: playerID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 12345
+      responses:
+        "205":
+          description: player deleted from list Succsessfully
+        "404":
+          description: Player not found
+  /favorites/presentArrayFavoritePlayers/{userID}:
+    get:
+      tags:
+      - Favorites
+      summary: get list of favorites players
+      parameters:
+      - name: userID
+        in: path
+        description: Numeric ID of the user to get his favorite matches
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 1
+      responses:
+        "201":
+          description: Players array found and return
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersFavorites'
+        "404":
+          description: Players array not found
+  /Team:
+    get:
+      tags:
+      - Team
+      summary: get teams Data
+      responses:
+        "200":
+          description: data about all teams is returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teams'
+        "404":
+          description: Can't find teams
+  /Team/{teamID}:
+    get:
+      tags:
+      - Team
+      summary: get all Details about a team by its ID
+      parameters:
+      - name: teamID
+        in: path
+        description: ID of the team who we want to get information about
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 1410
+      responses:
+        "200":
+          description: returns data about the specific team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTeamPreviewList'
+        "404":
+          description: can't find team id
+  /Search/{playerName}:
+    get:
+      tags:
+      - Player
+      summary: get a preview about a player by his Name
+      parameters:
+      - name: playerName
+        in: path
+        description: The Name of the player
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: dvir
+      responses:
+        "200":
+          description: Data of the specific player
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchPlayerPreviewList'
+        "404":
+          description: Can't find player Name
+  /Search/{CoachName}:
+    get:
+      tags:
+      - Coach
+      summary: get a preview about a Coach by his Name
+      parameters:
+      - name: CoachName
+        in: path
+        description: The Name of the Coach
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: liad
+      responses:
+        "200":
+          description: Data of the specific Coach
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCoachPreviewList'
+        "404":
+          description: Can't find Coach Name
+  /Search/{TeamName}:
+    get:
+      tags:
+      - Team
+      summary: get a preview about a Team by his Name
+      parameters:
+      - name: TeamName
+        in: path
+        description: The Name of the Team
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: MACABI LIAD
+      responses:
+        "200":
+          description: Data of the specific Team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTeamPreviewList'
+        "404":
+          description: Can't find Team Name
+  /favorites/addTeam:
+    post:
+      tags:
+      - Favorites
+      summary: add team to user favorite teams array
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFavTeamIDviabody'
+      responses:
+        "201":
+          description: Team added Succsessfully
+        "404":
+          description: team not found
+  /favorites/deleteTeam/{teamID}:
+    delete:
+      tags:
+      - Favorites
+      summary: delete team from user favorite array
+      parameters:
+      - name: teamID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 12345
+      responses:
+        "205":
+          description: Team deleted from list Succsessfully
+        "404":
+          description: Team not found
+  /favorites/presentArrayFavoriteTeams/{userID}:
+    get:
+      tags:
+      - Favorites
+      summary: get list of favorites teams
+      parameters:
+      - name: userID
+        in: path
+        description: Numeric ID of the user to get his favorite matches
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 1
+      responses:
+        "201":
+          description: Teams array found and return
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsFavorites'
+        "404":
+          description: Teams array not found
+  /favorites/addMatch:
+    post:
+      tags:
+      - Favorites
+      summary: add Match to user favorite array
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFavMatchIDviabody'
+      responses:
+        "201":
+          description: Match added Succsessfully
+        "404":
+          description: Match not found
+  /favorites/deleteMatch/{matchID}:
+    delete:
+      tags:
+      - Favorites
+      summary: delete Match from user favorite array
+      parameters:
+      - name: matchID
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 12345
+      responses:
+        "205":
+          description: Match deleted from list Succsessfully
+        "404":
+          description: Match not found
+  /favorites/presentArrayFavoriteMatches/{userID}:
+    get:
+      tags:
+      - Favorites
+      summary: get list of favorites matches
+      parameters:
+      - name: userID
+        in: path
+        description: Numeric ID of the user to get his favorite matches
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 1
+      responses:
+        "201":
+          description: Matches array found and return
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchesFavorites'
+        "404":
+          description: can't find match array
+  /League:
+    get:
+      tags:
+      - League
+      summary: get the data of all the leagues
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaguePreview'
+        "404":
+          description: can't find leages
+  /League/{LeagueID}:
+    get:
+      tags:
+      - Favorites
+      summary: get list of matches
+      parameters:
+      - name: LeagueID
+        in: path
+        description: id of the league
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 1
+      responses:
+        "201":
+          description: Matches array found and return
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeagueMatches'
+        "404":
+          description: can't find Matches array
+  /League/addPreviewMatch:
+    post:
+      tags:
+      - League
+      summary: Add New match to system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPrevMatchIDviabody'
+      responses:
+        "201":
+          description: Add New match to system Successfuly
+        "400":
+          description: fail to add match to system
+  /League/addResultToMatch:
+    post:
+      tags:
+      - League
+      summary: Add New match to system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/match'
+      responses:
+        "201":
+          description: Add New match to system Successfuly
+        "400":
+          description: fail to add match Successfuly
+  /League/addEventsDetails:
+    post:
+      tags:
+      - League
+      summary: Add Events Details to Game
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventDetails'
+      responses:
+        "201":
+          description: Add Events Details to Game Successfuly
+        "400":
+          description: fail
+components:
+  schemas:
+    Register:
+      type: object
+      properties:
+        username:
+          maxLength: 8
+          minLength: 3
+          type: string
+          description: username conatins between 3 to 8 letters only
+        firstname:
+          type: string
+          description: user's first name
+          example: Liad
+        lastname:
+          type: string
+          description: user's last name
+          example: Segev
+        country:
+          type: string
+          description: user's country
+          example: Israel
+        password:
+          maxLength: 10
+          minLength: 5
+          type: string
+          description: |
+            password contains between 5 to 10 chars, at least one of them is a number and a special char
+          format: password
+          example: joanne@56
+        confirm_password:
+          maxLength: 10
+          minLength: 5
+          type: string
+          description: |
+            password contains between 5 to 10 chars, at least one of them is a number and a special char
+          format: password
+          example: joanne@56
+        email:
+          type: string
+          description: user's email
+          format: email
+          example: LiadisTheQueen@gmail.com
+        image-url:
+          type: string
+          description: URL for the user's image
+          format: URL
+          example: https://cloudinary.com/ladygaga
+      description: Model containing user info
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+          example: liad
+        password:
+          type: string
+          format: password
+          example: liad123
+    PreviewPlayer:
+      type: object
+      properties:
+        playerID:
+          type: integer
+          example: 1
+        playerName:
+          type: string
+          example: aaa
+        activeTeam:
+          type: string
+          example: aaa
+        picture:
+          type: string
+          format: URL
+        positionNumber:
+          type: integer
+          example: 1
+        personalPage:
+          type: string
+          format: URL
+    DetailsPlayer:
+      type: object
+      properties:
+        playerPreview:
+          $ref: '#/components/schemas/PreviewPlayer'
+        common_name:
+          type: string
+          example: messi
+        nationality:
+          type: string
+          example: israel
+        birthdate:
+          type: string
+          format: Date
+          example: 14/10/95
+        birthcountry:
+          type: string
+          example: israel
+        height:
+          type: integer
+          example: 80
+        weight:
+          type: integer
+      description: additional data that is not displayed in the PreviewPlayer.
+    PreviewCoach:
+      type: object
+      properties:
+        coachID:
+          type: integer
+          example: 80
+        CoachName:
+          type: string
+          example: yossi
+        activeTeam:
+          type: string
+          example: macabi haifa
+        picture:
+          type: string
+          format: URL
+        personalPage:
+          type: string
+          format: URL
+    DetailsCoach:
+      type: object
+      properties:
+        playerPreview:
+          $ref: '#/components/schemas/PreviewCoach'
+        common_name:
+          type: string
+          example: yossi
+        nationality:
+          type: string
+          example: israeli
+        birthdate:
+          type: string
+          format: Date
+          example: 14/10/95
+        birthcountry:
+          type: integer
+        height:
+          type: integer
+          example: 80
+        weight:
+          type: integer
+          example: 90
+      description: additional data that is not displayed in the PreviewPlayer.
+    PreviewTeam:
+      type: object
+      properties:
+        teamID:
+          type: integer
+          example: 12345
+        TeamName:
+          type: string
+          example: Barcelona
+    Teams:
+      type: array
+      items:
+        $ref: '#/components/schemas/TeamDetails'
+    PlayersFavorites:
+      type: array
+      items:
+        $ref: '#/components/schemas/PreviewPlayer'
+    TeamsFavorites:
+      type: array
+      items:
+        $ref: '#/components/schemas/PreviewTeam'
+    MatchesFavorites:
+      type: array
+      items:
+        $ref: '#/components/schemas/match'
+    SearchPlayerPreviewList:
+      type: array
+      items:
+        $ref: '#/components/schemas/PreviewPlayer'
+    SearchCoachPreviewList:
+      type: array
+      items:
+        $ref: '#/components/schemas/PreviewCoach'
+    SearchTeamPreviewList:
+      type: array
+      items:
+        $ref: '#/components/schemas/PreviewTeam'
+    HistoryMatches:
+      type: array
+      items:
+        $ref: '#/components/schemas/match'
+    FutureMatches:
+      type: array
+      items:
+        $ref: '#/components/schemas/PreviewMatch'
+    PreviewMatch:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        hour:
+          type: string
+          example: 15:30
+        stadium:
+          type: string
+          example: Camp nou
+        superligaName:
+          type: string
+          example: Ligat Haal
+        seasonName:
+          type: string
+          example: 2020-2021
+        stageName:
+          type: string
+          example: Final
+        homeTeam:
+          $ref: '#/components/schemas/PreviewTeam'
+        awayTeam:
+          $ref: '#/components/schemas/PreviewTeam'
+    match:
+      type: object
+      properties:
+        previewMatch:
+          $ref: '#/components/schemas/PreviewMatch'
+        refereeName:
+          type: string
+          example: Dvir Rainisch
+        homeGoals:
+          type: integer
+          example: 3
+        awayGoals:
+          type: integer
+          example: 2
+        eventsCalendar:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventDetails'
+    TeamDetails:
+      type: object
+      properties:
+        TeamPreview:
+          $ref: '#/components/schemas/PreviewTeam'
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviewPlayer'
+        coach:
+          $ref: '#/components/schemas/PreviewCoach'
+        historyMatches:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryMatches'
+        futureMatches:
+          type: array
+          items:
+            $ref: '#/components/schemas/FutureMatches'
+        name:
+          type: string
+        logoURL:
+          type: string
+          format: url
+    EventInGame:
+      type: string
+      enum:
+      - Goal
+      - Offside
+      - Foul
+      - RedCard
+      - YellowCard
+      - Injury
+      - SubPlayer
+    EventDetails:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: Date
+          example: 2017-07-21T00:00:00.000+0000
+        Hour:
+          type: string
+          example: 15:30
+        TimeMinuteInGame:
+          maximum: 90
+          minimum: 0
+          type: integer
+          example: 60
+        eventInGame:
+          $ref: '#/components/schemas/EventInGame'
+        playerName:
+          type: string
+          example: Neymar
+        description:
+          type: string
+      example: 15.05.2021 21:30 60, Red card to Liad Segev
+    AddPrevMatchIDviabody:
+      type: object
+      properties:
+        matchID:
+          type: integer
+          example: 12345
+    AddFavMatchIDviabody:
+      type: object
+      properties:
+        matchID:
+          type: integer
+          example: 12345
+    AddFavTeamIDviabody:
+      type: object
+      properties:
+        teamID:
+          type: integer
+          example: 12345
+    AddFavPlayerIDviabody:
+      type: object
+      properties:
+        playerID:
+          type: integer
+          example: 12345
+    LeaguePreview:
+      type: object
+      properties:
+        LeagueID:
+          type: integer
+          example: 12345
+        LeagueName:
+          type: string
+          example: Ligat Haal
+        SeasonName:
+          type: string
+          example: 2020-2021
+        CurrentStage:
+          type: string
+          example: Final
+        NextGame:
+          $ref: '#/components/schemas/PreviewMatch'
+    LeagueMatches:
+      type: object
+      properties:
+        LeagueID:
+          type: integer
+          example: 12345
+        SeasonName:
+          type: string
+          example: 2020-2021
+        MatchesArray:
+          type: array
+          items:
+            $ref: '#/components/schemas/match'
