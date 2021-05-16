@@ -1,0 +1,1938 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Simple Inventory API</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Simple Inventory API</h1>
+    <div class="app-desc">This is a simple API</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="you@your-company.com">you@your-company.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/dvirainisch/liad_dvir_api/1.0.0</div>
+    <div class="license-info">Apache 2.0</div>
+    <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Coach">Coach</a></h4>
+  <ul>
+  <li><a href="#coachDetailsCoachIDGet"><code><span class="http-method">get</span> /Coach/Details/{coachID}</code></a></li>
+  <li><a href="#coachPreviewCoachIDGet"><code><span class="http-method">get</span> /coach/preview/{coachID}</code></a></li>
+  <li><a href="#searchCoachNameGet"><code><span class="http-method">get</span> /Search/{CoachName}</code></a></li>
+  </ul>
+  <h4><a href="#Favorites">Favorites</a></h4>
+  <ul>
+  <li><a href="#favoritesAddMatchPost"><code><span class="http-method">post</span> /favorites/addMatch</code></a></li>
+  <li><a href="#favoritesAddPlayerPost"><code><span class="http-method">post</span> /favorites/addPlayer</code></a></li>
+  <li><a href="#favoritesAddTeamPost"><code><span class="http-method">post</span> /favorites/addTeam</code></a></li>
+  <li><a href="#favoritesDeleteMatchMatchIDDelete"><code><span class="http-method">delete</span> /favorites/deleteMatch/{matchID}</code></a></li>
+  <li><a href="#favoritesDeletePlayerPlayerIDDelete"><code><span class="http-method">delete</span> /favorites/deletePlayer/{playerID}</code></a></li>
+  <li><a href="#favoritesDeleteTeamTeamIDDelete"><code><span class="http-method">delete</span> /favorites/deleteTeam/{teamID}</code></a></li>
+  <li><a href="#favoritesPresentArrayFavoriteMatchesUserIDGet"><code><span class="http-method">get</span> /favorites/presentArrayFavoriteMatches/{userID}</code></a></li>
+  <li><a href="#favoritesPresentArrayFavoritePlayersUserIDGet"><code><span class="http-method">get</span> /favorites/presentArrayFavoritePlayers/{userID}</code></a></li>
+  <li><a href="#favoritesPresentArrayFavoriteTeamsUserIDGet"><code><span class="http-method">get</span> /favorites/presentArrayFavoriteTeams/{userID}</code></a></li>
+  <li><a href="#leagueLeagueIDGet"><code><span class="http-method">get</span> /League/{LeagueID}</code></a></li>
+  </ul>
+  <h4><a href="#Guest">Guest</a></h4>
+  <ul>
+  <li><a href="#loginPost"><code><span class="http-method">post</span> /login</code></a></li>
+  <li><a href="#registerPost"><code><span class="http-method">post</span> /register</code></a></li>
+  </ul>
+  <h4><a href="#League">League</a></h4>
+  <ul>
+  <li><a href="#leagueAddEventsDetailsPost"><code><span class="http-method">post</span> /League/addEventsDetails</code></a></li>
+  <li><a href="#leagueAddPreviewMatchPost"><code><span class="http-method">post</span> /League/addPreviewMatch</code></a></li>
+  <li><a href="#leagueAddResultToMatchPost"><code><span class="http-method">post</span> /League/addResultToMatch</code></a></li>
+  <li><a href="#leagueGet"><code><span class="http-method">get</span> /League</code></a></li>
+  </ul>
+  <h4><a href="#Player">Player</a></h4>
+  <ul>
+  <li><a href="#playerDetailsPlayerIDGet"><code><span class="http-method">get</span> /player/Details/{playerID}</code></a></li>
+  <li><a href="#playerPreviewPlayerIDGet"><code><span class="http-method">get</span> /player/preview/{playerID}</code></a></li>
+  <li><a href="#searchPlayerNameGet"><code><span class="http-method">get</span> /Search/{playerName}</code></a></li>
+  </ul>
+  <h4><a href="#Team">Team</a></h4>
+  <ul>
+  <li><a href="#searchTeamNameGet"><code><span class="http-method">get</span> /Search/{TeamName}</code></a></li>
+  <li><a href="#teamGet"><code><span class="http-method">get</span> /Team</code></a></li>
+  <li><a href="#teamTeamIDGet"><code><span class="http-method">get</span> /Team/{teamID}</code></a></li>
+  </ul>
+
+  <h1><a name="Coach">Coach</a></h1>
+  <div class="method"><a name="coachDetailsCoachIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /Coach/Details/{coachID}</code></pre></div>
+    <div class="method-summary">get all Details about a Coach by his ID (<span class="nickname">coachDetailsCoachIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">coachID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Coach </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#DetailsCoach">DetailsCoach</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "birthcountry" : 0,
+  "birthdate" : "14/10/95",
+  "nationality" : "israeli",
+  "weight" : 90,
+  "common_name" : "yossi",
+  "playerPreview" : {
+    "CoachName" : "yossi",
+    "activeTeam" : "macabi haifa",
+    "coachID" : 80,
+    "personalPage" : "personalPage",
+    "picture" : "picture"
+  },
+  "height" : 80
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Full Data of the specific Coach
+        <a href="#DetailsCoach">DetailsCoach</a>
+    <h4 class="field-label">404</h4>
+    Can&#x27;t find Coach ID
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="coachPreviewCoachIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /coach/preview/{coachID}</code></pre></div>
+    <div class="method-summary">get a preview about a Coach by his ID (<span class="nickname">coachPreviewCoachIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">coachID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Coach </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#PreviewCoach">PreviewCoach</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "CoachName" : "yossi",
+  "activeTeam" : "macabi haifa",
+  "coachID" : 80,
+  "personalPage" : "personalPage",
+  "picture" : "picture"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Data of the specific Coach
+        <a href="#PreviewCoach">PreviewCoach</a>
+    <h4 class="field-label">404</h4>
+    Can&#x27;t find Coach ID
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="searchCoachNameGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /Search/{CoachName}</code></pre></div>
+    <div class="method-summary">get a preview about a Coach by his Name (<span class="nickname">searchCoachNameGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">CoachName (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The Name of the Coach </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SearchCoachPreviewList">SearchCoachPreviewList</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "CoachName" : "yossi",
+  "activeTeam" : "macabi haifa",
+  "coachID" : 80,
+  "personalPage" : "personalPage",
+  "picture" : "picture"
+}, {
+  "CoachName" : "yossi",
+  "activeTeam" : "macabi haifa",
+  "coachID" : 80,
+  "personalPage" : "personalPage",
+  "picture" : "picture"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Data of the specific Coach
+        <a href="#SearchCoachPreviewList">SearchCoachPreviewList</a>
+    <h4 class="field-label">404</h4>
+    Can&#x27;t find Coach Name
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Favorites">Favorites</a></h1>
+  <div class="method"><a name="favoritesAddMatchPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /favorites/addMatch</code></pre></div>
+    <div class="method-summary">add Match to user favorite array (<span class="nickname">favoritesAddMatchPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#AddFavMatchIDviabody">AddFavMatchIDviabody</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Match added Succsessfully
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Match not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="favoritesAddPlayerPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /favorites/addPlayer</code></pre></div>
+    <div class="method-summary">add player to user favorite array (<span class="nickname">favoritesAddPlayerPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#AddFavPlayerIDviabody">AddFavPlayerIDviabody</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    player added Succsessfully
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Players list not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="favoritesAddTeamPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /favorites/addTeam</code></pre></div>
+    <div class="method-summary">add team to user favorite teams array (<span class="nickname">favoritesAddTeamPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#AddFavTeamIDviabody">AddFavTeamIDviabody</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Team added Succsessfully
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    team not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="favoritesDeleteMatchMatchIDDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /favorites/deleteMatch/{matchID}</code></pre></div>
+    <div class="method-summary">delete Match from user favorite array (<span class="nickname">favoritesDeleteMatchMatchIDDelete</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">matchID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">205</h4>
+    Match deleted from list Succsessfully
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Match not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="favoritesDeletePlayerPlayerIDDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /favorites/deletePlayer/{playerID}</code></pre></div>
+    <div class="method-summary">delete player from user favorite array (<span class="nickname">favoritesDeletePlayerPlayerIDDelete</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">playerID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">205</h4>
+    player deleted from list Succsessfully
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Player not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="favoritesDeleteTeamTeamIDDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /favorites/deleteTeam/{teamID}</code></pre></div>
+    <div class="method-summary">delete team from user favorite array (<span class="nickname">favoritesDeleteTeamTeamIDDelete</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">teamID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">205</h4>
+    Team deleted from list Succsessfully
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Team not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="favoritesPresentArrayFavoriteMatchesUserIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /favorites/presentArrayFavoriteMatches/{userID}</code></pre></div>
+    <div class="method-summary">get list of favorites matches (<span class="nickname">favoritesPresentArrayFavoriteMatchesUserIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Numeric ID of the user to get his favorite matches </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MatchesFavorites">MatchesFavorites</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+  "refereeName" : "Dvir Rainisch",
+  "previewMatch" : {
+    "date" : "2000-01-23",
+    "stageName" : "Final",
+    "hour" : "15:30",
+    "superligaName" : "Ligat Haal",
+    "seasonName" : "2020-2021",
+    "stadium" : "Camp nou"
+  },
+  "homeGoals" : 3,
+  "awayGoals" : 2
+}, {
+  "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+  "refereeName" : "Dvir Rainisch",
+  "previewMatch" : {
+    "date" : "2000-01-23",
+    "stageName" : "Final",
+    "hour" : "15:30",
+    "superligaName" : "Ligat Haal",
+    "seasonName" : "2020-2021",
+    "stadium" : "Camp nou"
+  },
+  "homeGoals" : 3,
+  "awayGoals" : 2
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Matches array found and return
+        <a href="#MatchesFavorites">MatchesFavorites</a>
+    <h4 class="field-label">404</h4>
+    can&#x27;t find match array
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="favoritesPresentArrayFavoritePlayersUserIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /favorites/presentArrayFavoritePlayers/{userID}</code></pre></div>
+    <div class="method-summary">get list of favorites players (<span class="nickname">favoritesPresentArrayFavoritePlayersUserIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Numeric ID of the user to get his favorite matches </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#PlayersFavorites">PlayersFavorites</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "playerName" : "aaa",
+  "activeTeam" : "aaa",
+  "positionNumber" : 1,
+  "personalPage" : "personalPage",
+  "picture" : "picture",
+  "playerID" : 1
+}, {
+  "playerName" : "aaa",
+  "activeTeam" : "aaa",
+  "positionNumber" : 1,
+  "personalPage" : "personalPage",
+  "picture" : "picture",
+  "playerID" : 1
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Players array found and return
+        <a href="#PlayersFavorites">PlayersFavorites</a>
+    <h4 class="field-label">404</h4>
+    Players array not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="favoritesPresentArrayFavoriteTeamsUserIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /favorites/presentArrayFavoriteTeams/{userID}</code></pre></div>
+    <div class="method-summary">get list of favorites teams (<span class="nickname">favoritesPresentArrayFavoriteTeamsUserIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Numeric ID of the user to get his favorite matches </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#TeamsFavorites">TeamsFavorites</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "teamID" : 12345,
+  "TeamName" : "Barcelona"
+}, {
+  "teamID" : 12345,
+  "TeamName" : "Barcelona"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Teams array found and return
+        <a href="#TeamsFavorites">TeamsFavorites</a>
+    <h4 class="field-label">404</h4>
+    Teams array not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="leagueLeagueIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /League/{LeagueID}</code></pre></div>
+    <div class="method-summary">get list of matches (<span class="nickname">leagueLeagueIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">LeagueID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; id of the league </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LeagueMatches">LeagueMatches</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "SeasonName" : "2020-2021",
+  "LeagueID" : 12345,
+  "MatchesArray" : [ {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  }, {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Matches array found and return
+        <a href="#LeagueMatches">LeagueMatches</a>
+    <h4 class="field-label">404</h4>
+    can&#x27;t find Matches array
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Guest">Guest</a></h1>
+  <div class="method"><a name="loginPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /login</code></pre></div>
+    <div class="method-summary">A user login into the system (<span class="nickname">loginPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Login">Login</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Login ok
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Username or password not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="registerPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /register</code></pre></div>
+    <div class="method-summary">A new user from the client is added to the server (<span class="nickname">registerPost</span>)</div>
+    <div class="method-notes">A JSON object contains all the details about the new user.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Register">Register</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Inventory item to add </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    the user has been created.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Wrong input parameters
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="League">League</a></h1>
+  <div class="method"><a name="leagueAddEventsDetailsPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /League/addEventsDetails</code></pre></div>
+    <div class="method-summary">Add Events Details to Game (<span class="nickname">leagueAddEventsDetailsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#EventDetails">EventDetails</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Add Events Details to Game Successfuly
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    fail
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="leagueAddPreviewMatchPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /League/addPreviewMatch</code></pre></div>
+    <div class="method-summary">Add New match to system (<span class="nickname">leagueAddPreviewMatchPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#AddPrevMatchIDviabody">AddPrevMatchIDviabody</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Add New match to system Successfuly
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    fail to add match to system
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="leagueAddResultToMatchPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /League/addResultToMatch</code></pre></div>
+    <div class="method-summary">Add New match to system (<span class="nickname">leagueAddResultToMatchPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#match">match</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Add New match to system Successfuly
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    fail to add match Successfuly
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="leagueGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /League</code></pre></div>
+    <div class="method-summary">get the data of all the leagues (<span class="nickname">leagueGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LeaguePreview">LeaguePreview</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "SeasonName" : "2020-2021",
+  "LeagueName" : "Ligat Haal",
+  "CurrentStage" : "Final",
+  "LeagueID" : 12345,
+  "NextGame" : {
+    "date" : "2000-01-23",
+    "stageName" : "Final",
+    "hour" : "15:30",
+    "superligaName" : "Ligat Haal",
+    "seasonName" : "2020-2021",
+    "stadium" : "Camp nou"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#LeaguePreview">LeaguePreview</a>
+    <h4 class="field-label">404</h4>
+    can&#x27;t find leages
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Player">Player</a></h1>
+  <div class="method"><a name="playerDetailsPlayerIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /player/Details/{playerID}</code></pre></div>
+    <div class="method-summary">get all Details about a player by his ID (<span class="nickname">playerDetailsPlayerIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">playerID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the player </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#DetailsPlayer">DetailsPlayer</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "birthcountry" : "israel",
+  "birthdate" : "14/10/95",
+  "nationality" : "israel",
+  "weight" : 0,
+  "common_name" : "messi",
+  "playerPreview" : {
+    "playerName" : "aaa",
+    "activeTeam" : "aaa",
+    "positionNumber" : 1,
+    "personalPage" : "personalPage",
+    "picture" : "picture",
+    "playerID" : 1
+  },
+  "height" : 80
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Full Data of the specific player
+        <a href="#DetailsPlayer">DetailsPlayer</a>
+    <h4 class="field-label">404</h4>
+    Can&#x27;t find player ID
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="playerPreviewPlayerIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /player/preview/{playerID}</code></pre></div>
+    <div class="method-summary">get a preview about a player by his ID (<span class="nickname">playerPreviewPlayerIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">playerID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the player </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#PreviewPlayer">PreviewPlayer</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "playerName" : "aaa",
+  "activeTeam" : "aaa",
+  "positionNumber" : 1,
+  "personalPage" : "personalPage",
+  "picture" : "picture",
+  "playerID" : 1
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Data of the specific player
+        <a href="#PreviewPlayer">PreviewPlayer</a>
+    <h4 class="field-label">404</h4>
+    Can&#x27;t find player ID
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="searchPlayerNameGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /Search/{playerName}</code></pre></div>
+    <div class="method-summary">get a preview about a player by his Name (<span class="nickname">searchPlayerNameGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">playerName (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The Name of the player </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SearchPlayerPreviewList">SearchPlayerPreviewList</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "playerName" : "aaa",
+  "activeTeam" : "aaa",
+  "positionNumber" : 1,
+  "personalPage" : "personalPage",
+  "picture" : "picture",
+  "playerID" : 1
+}, {
+  "playerName" : "aaa",
+  "activeTeam" : "aaa",
+  "positionNumber" : 1,
+  "personalPage" : "personalPage",
+  "picture" : "picture",
+  "playerID" : 1
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Data of the specific player
+        <a href="#SearchPlayerPreviewList">SearchPlayerPreviewList</a>
+    <h4 class="field-label">404</h4>
+    Can&#x27;t find player Name
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Team">Team</a></h1>
+  <div class="method"><a name="searchTeamNameGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /Search/{TeamName}</code></pre></div>
+    <div class="method-summary">get a preview about a Team by his Name (<span class="nickname">searchTeamNameGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">TeamName (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The Name of the Team </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SearchTeamPreviewList">SearchTeamPreviewList</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "teamID" : 12345,
+  "TeamName" : "Barcelona"
+}, {
+  "teamID" : 12345,
+  "TeamName" : "Barcelona"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Data of the specific Team
+        <a href="#SearchTeamPreviewList">SearchTeamPreviewList</a>
+    <h4 class="field-label">404</h4>
+    Can&#x27;t find Team Name
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="teamGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /Team</code></pre></div>
+    <div class="method-summary">get teams Data (<span class="nickname">teamGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Teams">Teams</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "historyMatches" : [ [ {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  }, {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  } ], [ {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  }, {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  } ] ],
+  "players" : [ {
+    "playerName" : "aaa",
+    "activeTeam" : "aaa",
+    "positionNumber" : 1,
+    "personalPage" : "personalPage",
+    "picture" : "picture",
+    "playerID" : 1
+  }, {
+    "playerName" : "aaa",
+    "activeTeam" : "aaa",
+    "positionNumber" : 1,
+    "personalPage" : "personalPage",
+    "picture" : "picture",
+    "playerID" : 1
+  } ],
+  "TeamPreview" : {
+    "teamID" : 12345,
+    "TeamName" : "Barcelona"
+  },
+  "name" : "name",
+  "coach" : {
+    "CoachName" : "yossi",
+    "activeTeam" : "macabi haifa",
+    "coachID" : 80,
+    "personalPage" : "personalPage",
+    "picture" : "picture"
+  },
+  "futureMatches" : [ [ null, null ], [ null, null ] ],
+  "logoURL" : "http://example.com/aeiou"
+}, {
+  "historyMatches" : [ [ {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  }, {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  } ], [ {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  }, {
+    "eventsCalendar" : [ "15.05.2021 21:30 60, Red card to Liad Segev", "15.05.2021 21:30 60, Red card to Liad Segev" ],
+    "refereeName" : "Dvir Rainisch",
+    "previewMatch" : {
+      "date" : "2000-01-23",
+      "stageName" : "Final",
+      "hour" : "15:30",
+      "superligaName" : "Ligat Haal",
+      "seasonName" : "2020-2021",
+      "stadium" : "Camp nou"
+    },
+    "homeGoals" : 3,
+    "awayGoals" : 2
+  } ] ],
+  "players" : [ {
+    "playerName" : "aaa",
+    "activeTeam" : "aaa",
+    "positionNumber" : 1,
+    "personalPage" : "personalPage",
+    "picture" : "picture",
+    "playerID" : 1
+  }, {
+    "playerName" : "aaa",
+    "activeTeam" : "aaa",
+    "positionNumber" : 1,
+    "personalPage" : "personalPage",
+    "picture" : "picture",
+    "playerID" : 1
+  } ],
+  "TeamPreview" : {
+    "teamID" : 12345,
+    "TeamName" : "Barcelona"
+  },
+  "name" : "name",
+  "coach" : {
+    "CoachName" : "yossi",
+    "activeTeam" : "macabi haifa",
+    "coachID" : 80,
+    "personalPage" : "personalPage",
+    "picture" : "picture"
+  },
+  "futureMatches" : [ [ null, null ], [ null, null ] ],
+  "logoURL" : "http://example.com/aeiou"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    data about all teams is returned
+        <a href="#Teams">Teams</a>
+    <h4 class="field-label">404</h4>
+    Can&#x27;t find teams
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="teamTeamIDGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /Team/{teamID}</code></pre></div>
+    <div class="method-summary">get all Details about a team by its ID (<span class="nickname">teamTeamIDGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">teamID (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the team who we want to get information about </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SearchTeamPreviewList">SearchTeamPreviewList</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "teamID" : 12345,
+  "TeamName" : "Barcelona"
+}, {
+  "teamID" : 12345,
+  "TeamName" : "Barcelona"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    returns data about the specific team
+        <a href="#SearchTeamPreviewList">SearchTeamPreviewList</a>
+    <h4 class="field-label">404</h4>
+    can&#x27;t find team id
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#AddFavMatchIDviabody"><code>AddFavMatchIDviabody</code></a></li>
+    <li><a href="#AddFavPlayerIDviabody"><code>AddFavPlayerIDviabody</code></a></li>
+    <li><a href="#AddFavTeamIDviabody"><code>AddFavTeamIDviabody</code></a></li>
+    <li><a href="#AddPrevMatchIDviabody"><code>AddPrevMatchIDviabody</code></a></li>
+    <li><a href="#DetailsCoach"><code>DetailsCoach</code></a></li>
+    <li><a href="#DetailsPlayer"><code>DetailsPlayer</code></a></li>
+    <li><a href="#EventDetails"><code>EventDetails</code></a></li>
+    <li><a href="#EventInGame"><code>EventInGame</code></a></li>
+    <li><a href="#FutureMatches"><code>FutureMatches</code></a></li>
+    <li><a href="#HistoryMatches"><code>HistoryMatches</code></a></li>
+    <li><a href="#LeagueMatches"><code>LeagueMatches</code></a></li>
+    <li><a href="#LeaguePreview"><code>LeaguePreview</code></a></li>
+    <li><a href="#Login"><code>Login</code></a></li>
+    <li><a href="#MatchesFavorites"><code>MatchesFavorites</code></a></li>
+    <li><a href="#PlayersFavorites"><code>PlayersFavorites</code></a></li>
+    <li><a href="#PreviewCoach"><code>PreviewCoach</code></a></li>
+    <li><a href="#PreviewMatch"><code>PreviewMatch</code></a></li>
+    <li><a href="#PreviewPlayer"><code>PreviewPlayer</code></a></li>
+    <li><a href="#PreviewTeam"><code>PreviewTeam</code></a></li>
+    <li><a href="#Register"><code>Register</code></a></li>
+    <li><a href="#SearchCoachPreviewList"><code>SearchCoachPreviewList</code></a></li>
+    <li><a href="#SearchPlayerPreviewList"><code>SearchPlayerPreviewList</code></a></li>
+    <li><a href="#SearchTeamPreviewList"><code>SearchTeamPreviewList</code></a></li>
+    <li><a href="#TeamDetails"><code>TeamDetails</code></a></li>
+    <li><a href="#Teams"><code>Teams</code></a></li>
+    <li><a href="#TeamsFavorites"><code>TeamsFavorites</code></a></li>
+    <li><a href="#match"><code>match</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="AddFavMatchIDviabody"><code>AddFavMatchIDviabody</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">matchID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 12345</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="AddFavPlayerIDviabody"><code>AddFavPlayerIDviabody</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">playerID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 12345</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="AddFavTeamIDviabody"><code>AddFavTeamIDviabody</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">teamID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 12345</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="AddPrevMatchIDviabody"><code>AddPrevMatchIDviabody</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">matchID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 12345</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DetailsCoach"><code>DetailsCoach</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>additional data that is not displayed in the PreviewPlayer.</div>
+    <div class="field-items">
+      <div class="param">playerPreview (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewCoach">PreviewCoach</a></span>  </div>
+<div class="param">common_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: yossi</span></div>
+<div class="param">nationality (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: israeli</span></div>
+<div class="param">birthdate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: Date</div>
+          <div class="param-desc"><span class="param-type">example: 14/10/95</span></div>
+<div class="param">birthcountry (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">height (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 80</span></div>
+<div class="param">weight (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 90</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DetailsPlayer"><code>DetailsPlayer</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>additional data that is not displayed in the PreviewPlayer.</div>
+    <div class="field-items">
+      <div class="param">playerPreview (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewPlayer">PreviewPlayer</a></span>  </div>
+<div class="param">common_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: messi</span></div>
+<div class="param">nationality (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: israel</span></div>
+<div class="param">birthdate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: Date</div>
+          <div class="param-desc"><span class="param-type">example: 14/10/95</span></div>
+<div class="param">birthcountry (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: israel</span></div>
+<div class="param">height (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 80</span></div>
+<div class="param">weight (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="EventDetails"><code>EventDetails</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">Date (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: Date</div>
+          <div class="param-desc"><span class="param-type">example: 2017-07-21T00:00:00.000Z</span></div>
+<div class="param">Hour (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 15:30</span></div>
+<div class="param">TimeMinuteInGame (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 60</span></div>
+<div class="param">eventInGame (optional)</div><div class="param-desc"><span class="param-type"><a href="#EventInGame">EventInGame</a></span>  </div>
+<div class="param">playerName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Neymar</span></div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="EventInGame"><code>EventInGame</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="FutureMatches"><code>FutureMatches</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HistoryMatches"><code>HistoryMatches</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LeagueMatches"><code>LeagueMatches</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">LeagueID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 12345</span></div>
+<div class="param">SeasonName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 2020-2021</span></div>
+<div class="param">MatchesArray (optional)</div><div class="param-desc"><span class="param-type"><a href="#match">array[match]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LeaguePreview"><code>LeaguePreview</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">LeagueID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 12345</span></div>
+<div class="param">LeagueName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Ligat Haal</span></div>
+<div class="param">SeasonName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 2020-2021</span></div>
+<div class="param">CurrentStage (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Final</span></div>
+<div class="param">NextGame (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewMatch">PreviewMatch</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Login"><code>Login</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: liad</span></div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: password</div>
+          <div class="param-desc"><span class="param-type">example: liad123</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MatchesFavorites"><code>MatchesFavorites</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PlayersFavorites"><code>PlayersFavorites</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PreviewCoach"><code>PreviewCoach</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">coachID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 80</span></div>
+<div class="param">CoachName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: yossi</span></div>
+<div class="param">activeTeam (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: macabi haifa</span></div>
+<div class="param">picture (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: URL</div>
+<div class="param">personalPage (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: URL</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PreviewMatch"><code>PreviewMatch</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+<div class="param">hour (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 15:30</span></div>
+<div class="param">stadium (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Camp nou</span></div>
+<div class="param">superligaName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Ligat Haal</span></div>
+<div class="param">seasonName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 2020-2021</span></div>
+<div class="param">stageName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Final</span></div>
+<div class="param">homeTeam (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewTeam">PreviewTeam</a></span>  </div>
+<div class="param">awayTeam (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewTeam">PreviewTeam</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PreviewPlayer"><code>PreviewPlayer</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">playerID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+<div class="param">playerName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: aaa</span></div>
+<div class="param">activeTeam (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: aaa</span></div>
+<div class="param">picture (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: URL</div>
+<div class="param">positionNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+<div class="param">personalPage (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: URL</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PreviewTeam"><code>PreviewTeam</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">teamID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 12345</span></div>
+<div class="param">TeamName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Barcelona</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Register"><code>Register</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>Model containing user info</div>
+    <div class="field-items">
+      <div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> username conatins between 3 to 8 letters only </div>
+<div class="param">firstname (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> user&#x27;s first name </div>
+          <div class="param-desc"><span class="param-type">example: Liad</span></div>
+<div class="param">lastname (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> user&#x27;s last name </div>
+          <div class="param-desc"><span class="param-type">example: Segev</span></div>
+<div class="param">country (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> user&#x27;s country </div>
+          <div class="param-desc"><span class="param-type">example: Israel</span></div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> password contains between 5 to 10 chars, at least one of them is a number and a special char format: password</div>
+          <div class="param-desc"><span class="param-type">example: joanne@56</span></div>
+<div class="param">confirm_password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> password contains between 5 to 10 chars, at least one of them is a number and a special char format: password</div>
+          <div class="param-desc"><span class="param-type">example: joanne@56</span></div>
+<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> user&#x27;s email format: email</div>
+          <div class="param-desc"><span class="param-type">example: LiadisTheQueen@gmail.com</span></div>
+<div class="param">image-url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> URL for the user&#x27;s image format: URL</div>
+          <div class="param-desc"><span class="param-type">example: https://cloudinary.com/ladygaga</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="SearchCoachPreviewList"><code>SearchCoachPreviewList</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="SearchPlayerPreviewList"><code>SearchPlayerPreviewList</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="SearchTeamPreviewList"><code>SearchTeamPreviewList</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TeamDetails"><code>TeamDetails</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">TeamPreview (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewTeam">PreviewTeam</a></span>  </div>
+<div class="param">players (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewPlayer">array[PreviewPlayer]</a></span>  </div>
+<div class="param">coach (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewCoach">PreviewCoach</a></span>  </div>
+<div class="param">historyMatches (optional)</div><div class="param-desc"><span class="param-type"><a href="#HistoryMatches">array[HistoryMatches]</a></span>  </div>
+<div class="param">futureMatches (optional)</div><div class="param-desc"><span class="param-type"><a href="#FutureMatches">array[FutureMatches]</a></span>  </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">logoURL (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: url</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Teams"><code>Teams</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TeamsFavorites"><code>TeamsFavorites</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="match"><code>match</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">previewMatch (optional)</div><div class="param-desc"><span class="param-type"><a href="#PreviewMatch">PreviewMatch</a></span>  </div>
+<div class="param">refereeName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Dvir Rainisch</span></div>
+<div class="param">homeGoals (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 3</span></div>
+<div class="param">awayGoals (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 2</span></div>
+<div class="param">eventsCalendar (optional)</div><div class="param-desc"><span class="param-type"><a href="#EventDetails">array[EventDetails]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
